@@ -207,7 +207,7 @@
           <number>5</number>
          </property>
          <property name="columnCount">
-          <number>9</number>
+          <number>10</number>
          </property>
          <row/>
          <row/>
@@ -236,7 +236,12 @@
          </column>
          <column>
           <property name="text">
-           <string>Selays State</string>
+           <string>Relays State</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Eat State</string>
           </property>
          </column>
          <column>

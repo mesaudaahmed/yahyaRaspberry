@@ -19,15 +19,15 @@ def check_time():
     #get the current time by minutes
     current_time_minute=current_time.hour*60+current_time.minute
     #cursor.execute(sqlitequery,(tag,))
-    cursor.execute("SELECT * FROM deviceData ")
-    for row in cursor.execute("SELECT * FROM deviceData "):
+    cursor.execute("SELECT * FROM EspData ")
+    for row in cursor.execute("SELECT * FROM EspData "):
         if current_time_minute-int(row[2])<0 :
             print("time < 0")
-            cursor.execute("UPDATE deviceData set saveTime = 0 where tageId = ?",(row[1],))
+            cursor.execute("UPDATE EspData set saveTime = 0 where tageId = ?",(row[1],))
             conn.commit()
         elif current_time_minute-int(row[2])>12 :
             print("time > 12")
-            cursor.execute("UPDATE deviceData set RelayState = 0 where tageId = ?",(row[1],))
+            cursor.execute("UPDATE EspData set RelayState = 0 where tageId = ?",(row[1],))
             conn.commit()
     #connUpdate.close()
 def check_timeB():
@@ -36,7 +36,7 @@ def check_timeB():
     #get the current time by minutes
     current_time_minute=current_time.hour*60+current_time.minute
     #cursor.execute(sqlitequery,(tag,))
-    # cursor.execute("SELECT * FROM deviceData ")
+    # cursor.execute("SELECT * FROM EspData ")
     for row in cursor.execute("SELECT * FROM GroupB "):
         if current_time_minute-int(row[2])<0 :
             print("time < 0")
@@ -51,9 +51,9 @@ def check_timeB():
             cursor.execute("UPDATE GroupB set eatState = 1 where tageId = ?",(row[1],))
             cursor.execute("UPDATE GroupB set saveTime = ? where tageId = ?",(current_time_minute,row[1],))
             conn.commit()
-        for row1 in cursor.execute("SELECT * FROM deviceData "):
+        for row1 in cursor.execute("SELECT * FROM EspData "):
             if row[1]==row1[1]:
-                sql_delete_query = "DELETE FROM deviceData WHERE tageId = ?"
+                sql_delete_query = "DELETE FROM EspData WHERE tageId = ?"
                 cursor.execute(sql_delete_query,(row[1],))
   
     #connUpdate.close()
@@ -66,18 +66,18 @@ def insertdata(deviceId, tageId):
     #start the connection with database 
     #fucos on the database it self 
     #creat a table into our database with three fields tag id and device wich is esp32 and the time 
-    cursor.execute ( """ CREATE TABLE IF NOT EXISTS deviceData (
+    cursor.execute ( """ CREATE TABLE IF NOT EXISTS EspData (
                            device TEXT,
                            tageId INTEGER ,
                            saveTime TEXT,
                            RelayState TEXT) """ )
     clientes =[ (deviceId,tageId ,current_time_minute,"1")]
-    cursor.executemany ( " INSERT INTO deviceData ( device ,tageId , saveTime ,RelayState) VALUES ( ? , ? , ?, ?  ) " , clientes )
-    #tableSize=CUR_Test.execute( "SELECT COUNT(*) FROM deviceData")
+    cursor.executemany ( " INSERT INTO EspData ( device ,tageId , saveTime ,RelayState) VALUES ( ? , ? , ?, ?  ) " , clientes )
+    #tableSize=CUR_Test.execute( "SELECT COUNT(*) FROM EspData")
     #print(tableSize)
     conn.commit()
     print("data inserted ..")
-    cursor.execute( " SELECT * FROM deviceData " )
+    cursor.execute( " SELECT * FROM EspData " )
     print( cursor.fetchall())
     #conn.close()
 def insertdataB(deviceId, tageId):
@@ -96,8 +96,8 @@ def insertdataB(deviceId, tageId):
                            eatState INTEGER,
                            RelayState TEXT) """ )
     clientes =[ (deviceId,tageId,current_time_minute,0,"1")]
-    cursor.executemany ( " INSERT INTO deviceData ( device ,tageId , saveTime ,eatState,RelayState) VALUES ( ? , ? ,?, ?, ?  ) " , clientes )
-    #tableSize=CUR_Test.execute( "SELECT COUNT(*) FROM deviceData")
+    cursor.executemany ( " INSERT INTO EspData ( device ,tageId , saveTime ,eatState,RelayState) VALUES ( ? , ? ,?, ?, ?  ) " , clientes )
+    #tableSize=CUR_Test.execute( "SELECT COUNT(*) FROM EspData")
     #print(tableSize)
     conn.commit()
     print("data inserted ..")
@@ -111,18 +111,18 @@ def chekIfTagExists(deviceId,tag):
         current_t=datetime.now()
         #get the current time by minutes
         current_t_minute=current_t.hour*60+current_t.minute
-        cursor.execute(" CREATE TABLE IF NOT EXISTS deviceData ( device TEXT,tageId INTEGER , saveTime TEXT,RelayState TEXT) ")
+        cursor.execute(" CREATE TABLE IF NOT EXISTS EspData ( device TEXT,tageId INTEGER , saveTime TEXT,RelayState TEXT) ")
         print("start cheking if the tage [%s] is exists", tag)
-        sqlitequery="SELECT tageId FROM deviceData WHERE tageId =?"
+        sqlitequery="SELECT tageId FROM EspData WHERE tageId =?"
         cursor.execute(sqlitequery,(tag,))
         data=cursor.fetchall()
         if len(data)==0:
             print('no tageid named %s'%tag)
             print('check ESP State')
-            cursor.execute("SELECT * FROM deviceData ")
+            cursor.execute("SELECT * FROM EspData ")
             ok=0
             ok2=0
-            for row in cursor.execute("SELECT * FROM deviceData "):
+            for row in cursor.execute("SELECT * FROM EspData "):
                 if row[0]==deviceId and row[3]=="1":
                     ok=ok+1
             for row in cursor.execute("SELECT * FROM GroupB "):
@@ -140,21 +140,21 @@ def chekIfTagExists(deviceId,tag):
             
         else:
             print('tageid : %s already exists'%tag)
-            #rowsQuerySelect="SELECT device ,tageId , saveTime ,Relay1 FROM deviceData "
-            # rowsQueryDelete="DELETE tageId FROM deviceData WHERE tageId =?"
+            #rowsQuerySelect="SELECT device ,tageId , saveTime ,Relay1 FROM EspData "
+            # rowsQueryDelete="DELETE tageId FROM EspData WHERE tageId =?"
             #DB_cur.execute(rowsQuerySelect)
-            sqlitequery="SELECT tageId FROM deviceData WHERE tageId =?"
+            sqlitequery="SELECT tageId FROM EspData WHERE tageId =?"
             #cursor.execute(sqlitequery,(tag,))
-            cursor.execute("SELECT * FROM deviceData ")
-            for row in cursor.execute("SELECT * FROM deviceData "):
+            cursor.execute("SELECT * FROM EspData ")
+            for row in cursor.execute("SELECT * FROM EspData "):
                 if current_t_minute-int(row[2])<0 :
-                    cursor.execute("UPDATE deviceData set saveTime = 0 where tageId = ?",(row[1],))
+                    cursor.execute("UPDATE EspData set saveTime = 0 where tageId = ?",(row[1],))
                     conn.commit()
                 elif current_t_minute-int(row[2])>12 :
-                    cursor.execute("UPDATE deviceData set RelayState = 0 where tageId = ?",(row[1],))
+                    cursor.execute("UPDATE EspData set RelayState = 0 where tageId = ?",(row[1],))
                     conn.commit() 
     except sqlite3.Error as error:
-        print("Failed to check %s"%tag,"if exist in table deviceData",error)
+        print("Failed to check %s"%tag,"if exist in table EspData",error)
 def chekIfTagExistsB(deviceId,tag):
     try:
         relayoneTopic=deviceId+"/relay2"
@@ -178,7 +178,7 @@ def chekIfTagExistsB(deviceId,tag):
             for row in cursor.execute("SELECT * FROM GroupB "):
                 if row[0]==deviceId and row[4]=="1":
                     ok=ok+1
-            for row in cursor.execute("SELECT * FROM deviceData "):
+            for row in cursor.execute("SELECT * FROM EspData "):
                 if row[0]==deviceId and row[3]=="1":
                     ok2=ok2+1
             sqlitequery="SELECT * FROM GroupB WHERE tageId =?"
@@ -195,7 +195,7 @@ def chekIfTagExistsB(deviceId,tag):
                 cursor.execute("UPDATE GroupB set RelayState = ? where tageId = ?",("1",tag,))
                 client.publish(relayoneTopic,"1")
                 cursor.execute("UPDATE GroupB set saveTime = ? where tageId = ?",(current_t_minute,tag,))
-                # cursor.executemany ( " INSERT INTO deviceData ( device ,tageId , saveTime ,eatState,RelayState) VALUES ( ? , ? ,?, ?, ?  ) " , clientes )
+                # cursor.executemany ( " INSERT INTO EspData ( device ,tageId , saveTime ,eatState,RelayState) VALUES ( ? , ? ,?, ?, ?  ) " , clientes )
                 #publish data win the id is in recording
     except sqlite3.Error as error:
         print("Failed to check %s"%tag,"if exist in table GroupB",error)
@@ -204,7 +204,7 @@ def deleteRecord(tagDublicated):
         print("Delete record")
         #DELETE FROM mytable WHERE (msg_when <= datetime('now', '-4 days')
         # Deleting single record now
-        sql_delete_query = """DELETE FROM deviceData WHERE tageId = ?"""
+        sql_delete_query = """DELETE FROM EspData WHERE tageId = ?"""
         cursor.execute(sql_delete_query,(tagDublicated,))
         print("Record deleted successfully ")
         print(cursor.fetchall())
@@ -239,8 +239,8 @@ def showInRow():
     #get the current time by minutes
     current_time_minute=current_time.hour*60+current_time.minute
     print('sqlite3 connected to show rows')
-    rowsQuerySelect="SELECT * FROM deviceData "
-   # rowsQueryDelete="DELETE tageId FROM deviceData WHERE tageId =?"
+    rowsQuerySelect="SELECT * FROM EspData "
+   # rowsQueryDelete="DELETE tageId FROM EspData WHERE tageId =?"
     cursor.execute(rowsQuerySelect)
     print("the current time is ",current_time_minute)
     for row in cursor.execute(rowsQuerySelect):
@@ -251,7 +251,7 @@ def showInRow():
         #for now we able to delete the row evry 3 minutes from saving it
         if (current_time_minute-int(row[2])>240):
             #print('start delet tagid : ',row[1],'from : ',row[0])
-            sql_delete_query = "DELETE FROM deviceData WHERE tageId = ?"
+            sql_delete_query = "DELETE FROM EspData WHERE tageId = ?"
             cursor.execute(sql_delete_query,(row[1],))
             print("Record ",row[1],"deleted successfully ")
             conn.commit()
@@ -259,13 +259,13 @@ def showInRow():
             #print(CUR.fetchall())
         elif current_time_minute-int(row[2])<0 :
             print("midnight")
-            cursor.execute("UPDATE deviceData set saveTime = 0 where tageId = ?",(row[1],))
+            cursor.execute("UPDATE EspData set saveTime = 0 where tageId = ?",(row[1],))
             conn.commit()
             #print("Total number of rows updated :",CUR.total_changes)
         elif current_time_minute-int(row[2])>11 :
             print("RelayState 0")
             print(current_time_minute-int(row[2]))
-            cursor.execute("UPDATE deviceData set RelayState = 0 where tageId = ?",(row[1],))
+            cursor.execute("UPDATE EspData set RelayState = 0 where tageId = ?",(row[1],))
             conn.commit()
             #print("Total number of rows updated :",CUR.total_changes)
         else:
