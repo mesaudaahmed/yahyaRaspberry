@@ -19,10 +19,16 @@ def savetime(firstTime):
 # Pfunction to illustrate the addition
 # of time onto the datetime object
 def reloadtime(time,min):
-    new_time=time+timedelta(minutes=min)
+    savetime = datetime.strptime(time, '%Y-%m-%d %H:%M:%S.%f')
+    new_time=savetime+timedelta(minutes=min)
     return new_time
 
 # print(savetime("2022-07-22 01:52:14.237601"))
+def rowCounter():
+        with sqlite3.connect("clientData.db") as conn:
+            cursor=conn.cursor()
+            query="SELECT * FROM EspData"
+            return len(cursor.execute(query).fetchall())
 
 def insertdata(device:str, tag:int,save_time,reload_time,relay_state:str,eat_state,R1_time:str,R2_time:str,R3_time:str,days:int):
     #get the current date
@@ -52,9 +58,9 @@ def insertdata(device:str, tag:int,save_time,reload_time,relay_state:str,eat_sta
     print("data inserted ..")
     cursor.execute( " SELECT * FROM EspData " )
     print(cursor.fetchall())
-    cou.close()
+    # cou.close()
     #conn.close()
 
-insertdata("esp08",1546,datetime.now(),75,"1","1","20#40","25#40","30#40",5)
+# insertdata("esp08",i,datetime.now(),204,"0","0","20#40","25#40","30#40",10*i)
 # print(datetime.now())
-print(reloadtime(datetime.now(),75))
+# print(reloadtime("2022-07-22 18:07:54.138015",60))
