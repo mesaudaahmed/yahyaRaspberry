@@ -57,10 +57,10 @@ def insertdata(device:str, tag:int,save_time,reload_time,relay_state:str,eat_sta
     conn.commit()
     print("data inserted ..")
     cursor.execute( " SELECT * FROM EspData " )
-    print(cursor.fetchall())
+    print(cursor.fetchall()[rowCounter()-1])
     # cou.close()
     #conn.close()
 
-# insertdata("esp08",i,datetime.now(),204,"0","0","20#40","25#40","30#40",10*i)
-# print(datetime.now())
+#insertdata("esp08",585858,datetime.now(),70,"0","0","20#40","25#40","30#40",10002)
+# print(rowCounter())
 # print(reloadtime("2022-07-22 18:07:54.138015",60))
