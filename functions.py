@@ -30,6 +30,15 @@ def rowCounter():
             query="SELECT * FROM EspData"
             return len(cursor.execute(query).fetchall())
 
+def updatedata(device:str, tag:int,save_time,reload_time,relay_state:str,eat_state,R1_time:str,R2_time:str,R3_time:str,days:int):
+    clientes =[(device, tag,save_time,reload_time,relay_state,eat_state,R1_time,R2_time,R3_time,days,tag)]
+    cursor.executemany ( " UPDATE EspData set device=? , tag=? ,saveTime=? ,ReloadTime=? ,RelayState=? ,EatState=? ,R1time=? ,R2time=? ,R3time=? ,Days=? where tag = ?" , clientes )
+    conn.commit()
+    print("data updated ..")
+    cursor.execute( " SELECT * FROM EspData " )
+    print(cursor.fetchall()[rowCounter()-1])
+    # cou.close()
+    #conn.close()
 def insertdata(device:str, tag:int,save_time,reload_time,relay_state:str,eat_state,R1_time:str,R2_time:str,R3_time:str,days:int):
     #get the current date
     # current_time=datetime.now()
@@ -106,12 +115,12 @@ def searchTag(Tag):
 #         return data
 
 # return SearchTag(Tag)
-data=searchTag("1017")
-print(data)
+# data=searchTag("1017")
+# print(data)
 # print(t.TagRow)
 # print(t.Tag)
 
-# for i in range(50) : insertdata("esp08",1000+i,datetime.now(),70,"0","0","20#40","25#40","30#40",i)
+# updatedata("esp08",1000,datetime.now(),70,"0","0","50#40","25#40","30#40",10)
 # print(rowCounter())
 # print(reloadtime("2022-07-22 18:07:54.138015",60))
 # print(deleteTag("585858"))

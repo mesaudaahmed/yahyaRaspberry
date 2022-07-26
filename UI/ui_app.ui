@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1056</width>
-    <height>564</height>
+    <width>1155</width>
+    <height>595</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -251,6 +251,31 @@
        <bool>false</bool>
       </property>
       <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="3">
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>127</width>
+           <height>19</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Relay 1</string>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="5">
         <widget class="QSpinBox" name="spinBox_5">
          <property name="font">
@@ -263,15 +288,15 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
+       <item row="0" column="2">
+        <widget class="QSpinBox" name="spinBox_2">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
           </font>
          </property>
-         <property name="text">
-          <string>Relay 1</string>
+         <property name="maximum">
+          <number>100000</number>
          </property>
         </widget>
        </item>
@@ -287,8 +312,8 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="10">
-        <widget class="QSpinBox" name="spinBox_3">
+       <item row="0" column="11">
+        <widget class="QSpinBox" name="spinBox_4">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -298,43 +323,6 @@
           <number>100000</number>
          </property>
         </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QSpinBox" name="spinBox">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="maximum">
-          <number>100000</number>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="9" colspan="2">
-        <widget class="QPushButton" name="pushButton_3">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Connection</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>127</width>
-           <height>19</height>
-          </size>
-         </property>
-        </spacer>
        </item>
        <item row="0" column="6">
         <widget class="QSpinBox" name="spinBox_6">
@@ -348,15 +336,15 @@
          </property>
         </widget>
        </item>
-       <item row="1" column="7" colspan="2">
-        <widget class="QLineEdit" name="lineEdit_2">
+       <item row="0" column="10">
+        <widget class="QSpinBox" name="spinBox_3">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
           </font>
          </property>
-         <property name="placeholderText">
-          <string>Device </string>
+         <property name="maximum">
+          <number>100000</number>
          </property>
         </widget>
        </item>
@@ -373,27 +361,15 @@
          </property>
         </spacer>
        </item>
-       <item row="0" column="2">
-        <widget class="QSpinBox" name="spinBox_2">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="maximum">
-          <number>100000</number>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="11">
-        <widget class="QPushButton" name="pushButton_10">
+       <item row="1" column="9" colspan="2">
+        <widget class="QPushButton" name="pushButton_3">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>Setup</string>
+          <string>Connection</string>
          </property>
         </widget>
        </item>
@@ -410,8 +386,20 @@
          </property>
         </spacer>
        </item>
-       <item row="0" column="11">
-        <widget class="QSpinBox" name="spinBox_4">
+       <item row="1" column="11">
+        <widget class="QPushButton" name="pushButton_10">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Setup</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QSpinBox" name="spinBox">
          <property name="font">
           <font>
            <pointsize>12</pointsize>
@@ -434,6 +422,18 @@
          </property>
         </widget>
        </item>
+       <item row="1" column="7" colspan="2">
+        <widget class="QLineEdit" name="lineEdit_2">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="placeholderText">
+          <string>Device </string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
@@ -449,75 +449,75 @@
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
+        <widget class="QSplitter" name="splitter">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
          </property>
-         <property name="text">
-          <string>R1 ON</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="pushButton_11">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>R1 OFF</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="pushButton_12">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>R2 ON</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QPushButton" name="pushButton_13">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>R2 OFF</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="4">
-        <widget class="QPushButton" name="pushButton_14">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>R3 ON</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="5">
-        <widget class="QPushButton" name="pushButton_15">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>R3 OFF</string>
-         </property>
+         <widget class="QLineEdit" name="lineEdit_3">
+          <property name="placeholderText">
+           <string>Device</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_2">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>R1 ON</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_11">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>R1 OFF</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_12">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>R2 ON</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_13">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>R2 OFF</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_14">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>R3 ON</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButton_15">
+          <property name="font">
+           <font>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>R3 OFF</string>
+          </property>
+         </widget>
         </widget>
        </item>
       </layout>
@@ -530,7 +530,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1056</width>
+     <width>1155</width>
      <height>21</height>
     </rect>
    </property>

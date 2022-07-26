@@ -1,3 +1,8 @@
+from ast import Not
+from asyncio.windows_events import NULL
+from http.client import OK
+from re import A
+from tkinter.messagebox import YES
 from PyQt5.QtWidgets import (QApplication, QMainWindow,QMessageBox,QDialog)
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.uic import loadUi
@@ -24,6 +29,32 @@ class main_window(QMainWindow,Ui_MainWindow):
         self.pushButton.clicked.connect(lambda : self.resetClicked())#resset all user interface data
         self.pushButton_3.clicked.connect(lambda : self.connectionClicked())#check the connection with esp device data 
         self.pushButton_10.clicked.connect(lambda : self.setupClicked())#send config data to 
+        """the fllowing events are for sending ON OFF action
+        to a specifice esp device"""
+        self.pushButton_2.clicked.connect(lambda:self.r1ON())#activate relay 1
+        self.pushButton_11.clicked.connect(lambda:self.r1OFF())#deactivate relay 1
+        self.pushButton_12.clicked.connect(lambda:self.r2ON())#activate relay 2
+        self.pushButton_13.clicked.connect(lambda:self.r2OFF())#deactivate relay 2
+        self.pushButton_14.clicked.connect(lambda:self.r3ON())#activate relay 3
+        self.pushButton_15.clicked.connect(lambda:self.r3OFF())#deactivate relay 3
+    #activate relay 1
+    def r1ON(self):
+        print("send on relay 1")
+    #deactivate relay 1
+    def r1OFF(self):
+        print("send off relay 1")
+    #activate relay 2
+    def r2ON(self):
+        print("send on relay 2")
+    #deactivate relay 2
+    def r2OFF(self):
+        print("send off relay 2")
+    #activate relay 3
+    def r3ON(self):
+        print("send on relay 3")
+    #deactivate relay 3
+    def r3OFF(self):
+        print("send off relay 3")
     #load database table from esp to qtablewidget for 5 rows and n couloms
     #get how colums in qtablewidget
     def get_columCount(self):
@@ -82,7 +113,10 @@ class main_window(QMainWindow,Ui_MainWindow):
                     for i in range(self.get_columCount()):
                         self.tableWidget.setItem(tablerow,i,QtWidgets.QTableWidgetItem(str(row[i])))
                     tablerow +=1
-
+            # if tablerow<5:
+            #     for row in range(tablerow,self.get_GuiRowCount()): 
+            #         for i in range(self.get_columCount()):
+            #             self.tableWidget.setItem(tablerow,i,QtWidgets.QTableWidgetItem(""))
             self.CurrentPages+=1
             print("next page",self.CurrentPages,'/',last_page)
 
@@ -101,6 +135,22 @@ class main_window(QMainWindow,Ui_MainWindow):
         self.edit.show()
     def searchTagClicked(self):
         print(self.pushButton_9.text())
+        self.lineEdit.text()
+        qm = QMessageBox
+        if searchTag(self.lineEdit.text())[0] ==True:
+            tag=searchTag(self.lineEdit.text())
+            data=tag[1]
+            listdata=data[0]
+            print(self.get_GuiRowCount())
+            for i in range(self.get_columCount()):
+                self.tableWidget.setItem(0,i,QtWidgets.QTableWidgetItem(str(listdata[i])))
+            for row in range(1,5):
+                for i in range(self.get_columCount()):
+                    self.tableWidget.setItem(row,i,QtWidgets.QTableWidgetItem(""))
+
+        else :
+            qm.warning(self,'info',"<font size = 8>Tag id "+self.lineEdit.text()+" not exist </font>")
+  
     def resetClicked(self):
         print(self.pushButton.text())
         self.lineEdit.clear()
@@ -123,23 +173,61 @@ class InsertWindow(QMainWindow,Ui_insertWindow):
     def __init__(self):
         super(InsertWindow,self).__init__()
         self.setupUi(self)
-        self.device="esp00"
-        self.tag="0000"
-        self.ReloadTime=0
-        self.eatState=0
-        self.relayState=0
-        self.R1Start=0
-        self.R2Start=0
-        self.R3Start=0
-        self.R1End=0
-        self.R2End=0
-        self.R3End=0
-        self.days=0
+        self.device=None
+        self.tag=None
+        self.ReloadTime=None
+        self.eatState=None
+        self.relayState=1
+        self.R1Start=None
+        self.R2Start=None
+        self.R3Start=None
+        self.R1End=None
+        self.R2End=None
+        self.R3End=None
+        self.days=None
         
         self.pushButton.clicked.connect(lambda:self.insertDataButton())
     def insertDataButton(self):
         self.setValue()
-        insertdata(self.device,self.tag,datetime.now(),self.ReloadTime,self.relayState,self.eatState,str(self.R1Start)+"#"+str(self.R1End),str(self.R2Start)+"#"+str(self.R2End),str(self.R3Start)+"#"+str(self.R3End),self.days)
+        #insertion condutions for all data seted bu the user
+        qm = QMessageBox  
+        #check if device name have esp in the first three characters
+        if "esp" != self.device[0:3] or len(self.device)!=5:
+            print('bad device')
+            qm.warning(self,'Warning',"<font size = 8> Your device name is incorrect </font> ")
+            return False
+        #check if tag id is already in data
+        elif searchTag(str(self.tag))[0]==True:
+            print('tag is in our data')
+            qm.warning(self,'Warning',"<font size = 8>Tag id "+self.tag+" already exist </font>")
+            return False
+        #check if tag id is already in data
+        elif self.tag=='':
+            qm.warning(self,'Warning',"<font size = 8> please input atleast one tag </font>")
+            return False
+        #check if reload time is seted correctly
+        elif self.ReloadTime=='':
+            qm.warning(self,'Warning',"<font size = 8> please input the reload time </font>")
+            return False
+        #check if R1 start time is smaller than R1 END
+        elif self.R1Start>self.R1End:
+            print('bad timing for R1')
+            qm.warning(self,'Warning',"<font size = 8>R1 start can't be bigger than R1 end </font>")
+            return False
+        elif self.R2Start>self.R2End:
+            print('bad timing for R2')
+            qm.warning(self,'Warning',"<font size = 8>R2 start can't be bigger than R2 end </font>")
+            return False
+        elif self.R3Start>self.R3End:
+            print('bad timing for R3')
+            qm.warning(self,'Warning',"<font size = 8>R3 start can't be bigger than R3 end </font>")
+            
+            return False
+        else: 
+            insertdata(self.device,self.tag,datetime.now(),self.ReloadTime,self.relayState,self.eatState,str(self.R1Start)+"#"+str(self.R1End),str(self.R2Start)+"#"+str(self.R2End),str(self.R3Start)+"#"+str(self.R3End),self.days)
+            qm.information(self,'Congratulation',"<font size = 8>data inserted successfully</font>")
+            self.close()
+            # qm.close()
     def setValue(self):
         self.device=self.lineEdit.text()
         self.tag=self.lineEdit_2.text()
@@ -161,17 +249,20 @@ class DeleteWindow(QMainWindow,Ui_deleteWindow):
         self.pushButton_2.clicked.connect(lambda: self.cancelDelete())
     def confirmDelete(self):
         qm = QMessageBox
-        ret = qm.question(self,'Confirmation', "Are you sure to delete the Tag"+str(self.lineEdit.text()), qm.Yes | qm.No)
-        if ret == qm.Yes:
-            if (deleteTag(self.lineEdit.text())) is True:
+        
+        if searchTag(self.lineEdit.text())[0] ==True:
+            ret = qm.question(self,'Confirmation', "Are you sure to delete the Tag"+str(self.lineEdit.text()), qm.Yes | qm.No)
+            if ret==qm.Yes:
+                deleteTag(self.lineEdit.text())
                 qm.information(self,'info',"Tag is deleted")
                 self.close()
-            else :
-                qm.warning(self,'info',self.lineEdit.text())
+            else:
+                qm.warning(self,'info',"<font size = 8>Nothing Change</font>")
                 self.close()
-                print(deleteTag(self.lineEdit.text()))
-        else:
-            qm.information(self,'info',"Nothing Changed")
+        else :
+            qm.warning(self,'info',"<font size = 8>Tag id "+self.lineEdit.text()+" not exist </font>")
+  
+            # qm.information(self,'info',"Nothing Changed")
     def cancelDelete(self):
                 self.close()
 #search window class
@@ -179,6 +270,7 @@ class SearchEditeWindow(QMainWindow,Ui_deleteWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
+        self.lineEdit.text()
         self.pushButton.clicked.connect(lambda: self.confirm())
         self.pushButton_2.clicked.connect(lambda: self.cancel())
     def confirm(self):
@@ -191,6 +283,8 @@ class SearchEditeWindow(QMainWindow,Ui_deleteWindow):
                 qm.information(self,'info',"Tag is found it")
                 self.close()
                 win=EditWindow()
+                win.tag=self.lineEdit.text()
+                win.showData(self.lineEdit.text())
                 win.show()
                 # self.close()
         else:
@@ -203,9 +297,24 @@ class EditWindow(QMainWindow,Ui_insertWindow):
     def __init__(self,parent=None):
         super().__init__(parent)
         self.setupUi(self) 
-        self.Tag="1017"
+        self.device=None
+        self.tag=None
+        self.saveTime=None
+        self.ReloadTime=None
+        self.eatState=None
+        self.relayState=None
+        self.R1Start=None
+        self.R2Start=None
+        self.R3Start=None
+        self.R1End=None
+        self.R2End=None
+        self.R3End=None
+        self.days=None
+        self.pushButton.clicked.connect(lambda:self.update())
+    def showData(self,tagid):
+        self.tag=tagid
         sqlitequery="SELECT * FROM EspData WHERE tag =?"
-        cursor.execute(sqlitequery,(str(self.Tag),))
+        cursor.execute(sqlitequery,(str(self.tag),))
         data=cursor.fetchall()[0]
         self.device=data[1]
         self.tag=data[2]
@@ -220,7 +329,6 @@ class EditWindow(QMainWindow,Ui_insertWindow):
         self.R2End=data[8].split("#")[1]
         self.R3End=data[9].split("#")[1]
         self.days=data[10]
-        print(self.device,self.tag,self.saveTime,self.ReloadTime,self.eatState,self.relayState,self.R1Start,self.R2Start,self.R3Start,self.R1End,self.R2End,self.R3End,self.days)
         self.lineEdit.setText(str(data[1]))
         self.lineEdit_2.setText(str(data[2]))
         self.lineEdit_3.setText(str(data[4]))
@@ -237,7 +345,21 @@ class EditWindow(QMainWindow,Ui_insertWindow):
         self.spinBox_7.setValue(int(self.days))
         #ccheckBox
         self.checkBox.setChecked(True)
-        self.pushButton.clicked.connect(lambda:self.insertDataButton())
+    def setData(self):
+        self.device=self.lineEdit.text()
+        self.tag=self.lineEdit_2.text()
+        self.ReloadTime=self.lineEdit_3.text()
+        self.eatState=self.checkBox.checkState()#either 2 or 0
+        self.R1Start=self.spinBox.value()
+        self.R2Start=self.spinBox_3.value()
+        self.R3Start=self.spinBox_5.value()
+        self.R1End=self.spinBox_2.value()
+        self.R2End=self.spinBox_4.value()
+        self.R3End=self.spinBox_6.value()
+        self.days=self.spinBox_7.value()
+    def update(self):
+        self.setData()
+        updatedata(self.device,self.tag,datetime.now(),self.ReloadTime,self.relayState,self.eatState,str(self.R1Start)+"#"+str(self.R1End),str(self.R2Start)+"#"+str(self.R2End),str(self.R3Start)+"#"+str(self.R3End),self.days)
     def insertDataButton(self):
             self.close()
 

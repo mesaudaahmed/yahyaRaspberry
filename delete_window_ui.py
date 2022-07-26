@@ -33,6 +33,7 @@ class Ui_deleteWindow(object):
         font = QtGui.QFont()
         font.setPointSize(12)
         self.pushButton.setFont(font)
+        self.pushButton.setCheckable(False)
         self.pushButton.setObjectName("pushButton")
         self.gridLayout.addWidget(self.pushButton, 1, 0, 1, 1)
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
@@ -52,7 +53,8 @@ class Ui_deleteWindow(object):
 
     def retranslateUi(self, deleteWindow):
         _translate = QtCore.QCoreApplication.translate
-        deleteWindow.setWindowTitle(_translate("deleteWindow", "Delete Tag"))
+        deleteWindow.setWindowTitle(_translate("deleteWindow", "Perform window"))
         self.lineEdit.setPlaceholderText(_translate("deleteWindow", "Tag ID "))
         self.pushButton.setText(_translate("deleteWindow", "Perform"))
+        self.pushButton.setShortcut(_translate("deleteWindow", "Return"))
         self.pushButton_2.setText(_translate("deleteWindow", "Cancel"))

@@ -99,6 +99,9 @@
           <pointsize>12</pointsize>
          </font>
         </property>
+        <property name="placeholderText">
+         <string>Reload time en minute</string>
+        </property>
        </widget>
       </item>
       <item row="1" column="1" colspan="2">
@@ -107,6 +110,9 @@
          <font>
           <pointsize>12</pointsize>
          </font>
+        </property>
+        <property name="placeholderText">
+         <string>Tag id</string>
         </property>
        </widget>
       </item>
@@ -192,6 +198,9 @@
           <pointsize>12</pointsize>
          </font>
         </property>
+        <property name="placeholderText">
+         <string>esp</string>
+        </property>
        </widget>
       </item>
       <item row="3" column="0">
@@ -273,6 +282,18 @@
         </property>
         <property name="text">
          <string>Perform</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="6">
+       <widget class="QLabel" name="label_10">
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>max=360</string>
         </property>
        </widget>
       </item>
