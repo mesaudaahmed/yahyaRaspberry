@@ -55,7 +55,7 @@ def check_timeB():
             if row[1]==row1[1]:
                 sql_delete_query = "DELETE FROM EspData WHERE tageId = ?"
                 cursor.execute(sql_delete_query,(row[1],))
-  
+                
     #connUpdate.close()
 def insertdata(deviceId, tageId):
     #get the current date

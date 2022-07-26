@@ -40,6 +40,7 @@ def insertdata(device:str, tag:int,save_time,reload_time,relay_state:str,eat_sta
     #fucos on the database it self 
     #creat a table into our database with three fields tag id and device wich is esp32 and the time 
     cursor.execute ( """ CREATE TABLE IF NOT EXISTS EspData (
+                           ID INTEGER PRIMARY KEY,
                            device TEXT,
                            tag INTEGER ,
                            saveTime timestamp,
@@ -51,7 +52,7 @@ def insertdata(device:str, tag:int,save_time,reload_time,relay_state:str,eat_sta
                            R3time TEXT,
                            Days INTEGER) """ )
     clientes =[(device, tag,save_time,reload_time,relay_state,eat_state,R1_time,R2_time,R3_time,days)]
-    cou=cursor.executemany ( " INSERT INTO EspData ( device , tag ,saveTime ,ReloadTime ,RelayState,EatState,R1time,R2time ,R3time,Days) VALUES ( ? , ? , ?, ?, ?, ?, ?, ?, ?, ?  ) " , clientes )
+    cursor.executemany ( " INSERT INTO EspData ( device , tag ,saveTime ,ReloadTime ,RelayState,EatState,R1time,R2time ,R3time,Days) VALUES ( ? , ? , ?, ?, ?, ?, ?, ?, ?, ?  ) " , clientes )
     #tableSize=CUR_Test.execute( "SELECT COUNT(*) FROM EspData")
     #print(tableSize)
     conn.commit()
@@ -60,7 +61,60 @@ def insertdata(device:str, tag:int,save_time,reload_time,relay_state:str,eat_sta
     print(cursor.fetchall()[rowCounter()-1])
     # cou.close()
     #conn.close()
+def deleteTag(tag:str):
+    try:
+        sql_delete_query = "DELETE FROM EspData WHERE tag = ?"
+        cursor.execute(sql_delete_query,(tag,))
+        conn.commit()
+        return True
+    except sqlite3.OperationalError as e:
+        print(e)
+        return False
 
-#insertdata("esp08",585858,datetime.now(),70,"0","0","20#40","25#40","30#40",10002)
+def searchTag(Tag):
+    Tag=Tag
+    TagState=False
+    sqlitequery="SELECT * FROM EspData WHERE tag =?"
+    cursor.execute(sqlitequery,(Tag,))
+    if (len(cursor.fetchall())) >0:
+        cursor.execute(sqlitequery,(Tag,))
+        TagRow=cursor.fetchall()
+        TagState=True
+        return TagState,TagRow
+    else:
+        TagState=False
+        TagRow=[]
+        return TagState,TagRow
+# def searchTag2(Tag):
+#     data=[]
+#     Tag=Tag
+#     TagState=False
+#     sqlitequery="SELECT * FROM EspData WHERE tag =?"
+#     cursor.execute(sqlitequery,(Tag,))
+#     if (len(cursor.fetchall())) >0:
+#         cursor.execute(sqlitequery,(Tag,))
+#         TagState=True
+#         data.append(TagState)
+#         TagRow=cursor.fetchall()
+#         data.append(TagRow)
+#         return data
+#     else:
+#         TagState=False
+#         data.append(TagState)
+#         TagRow=[]
+#         data.append(TagRow)
+#         return data
+
+# return SearchTag(Tag)
+data=searchTag("1017")
+print(data)
+# print(t.TagRow)
+# print(t.Tag)
+
+# for i in range(50) : insertdata("esp08",1000+i,datetime.now(),70,"0","0","20#40","25#40","30#40",i)
 # print(rowCounter())
 # print(reloadtime("2022-07-22 18:07:54.138015",60))
+# print(deleteTag("585858"))
+
+
+
