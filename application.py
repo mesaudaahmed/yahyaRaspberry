@@ -279,10 +279,10 @@ Written for my Instructable - "How to use MQTT with the Raspberry Pi and ESP8266
 """
 
 # Don't forget to change the variables for the MQTT broker!
-mqtt_username = "debian"
-mqtt_password = "debian"
+mqtt_username = "dell"
+mqtt_password = "talib2020"
 mqtt_topic = "outTopic"
-mqtt_broker_ip = "192.168.43.143"
+mqtt_broker_ip = "localhost"
 
 client = mqtt.Client()
 # Set the username and password for the MQTT client
@@ -303,8 +303,6 @@ def on_message(client, userdata, msg):
     print("Topic: ", msg.topic + "\nMessage: " + str(msg.payload))
     #client.publish('device1/relay1', '1')
     data = json.loads(msg.payload)
-    # chekIfTagExists(str(data['deviceID']),data['tagID'])
-    # showInRow()
     chekIfTagExistsB(str(data['deviceID']),data['tagID'])
     check_timeB()
 

@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>612</width>
+    <height>335</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Setting</string>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QLineEdit" name="lineEdit">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="placeholderText">
+        <string>MQTT username</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QSpinBox" name="spinBox_4">
+       <property name="maximum">
+        <number>100000</number>
+       </property>
+       <property name="singleStep">
+        <number>10</number>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>R3</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLineEdit" name="lineEdit_3">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="placeholderText">
+        <string>MQTT password</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QSpinBox" name="spinBox_2">
+       <property name="maximum">
+        <number>100000</number>
+       </property>
+       <property name="singleStep">
+        <number>10</number>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>R2</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QSpinBox" name="spinBox_3">
+       <property name="maximum">
+        <number>100000</number>
+       </property>
+       <property name="singleStep">
+        <number>10</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>R1</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QSpinBox" name="spinBox_5">
+       <property name="maximum">
+        <number>100000</number>
+       </property>
+       <property name="singleStep">
+        <number>10</number>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="2">
+      <widget class="QSpinBox" name="spinBox_6">
+       <property name="maximum">
+        <number>100000</number>
+       </property>
+       <property name="singleStep">
+        <number>10</number>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="3">
+      <widget class="QSpinBox" name="spinBox_12">
+       <property name="maximum">
+        <number>100000</number>
+       </property>
+       <property name="singleStep">
+        <number>10</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" colspan="3">
+      <widget class="QLineEdit" name="lineEdit_2">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="placeholderText">
+        <string>MQTT Port</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLineEdit" name="lineEdit_5">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="placeholderText">
+        <string>MQTT topic</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLineEdit" name="lineEdit_7">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="placeholderText">
+        <string>MQTT broker IP</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1" colspan="3">
+      <widget class="QPushButton" name="pushButton">
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Perform</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
