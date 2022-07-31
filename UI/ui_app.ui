@@ -15,6 +15,212 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
+    <item row="0" column="0">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="title">
+       <string>Relay time setup</string>
+      </property>
+      <property name="flat">
+       <bool>false</bool>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Relay 1</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QSpinBox" name="spinBox">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="maximum">
+          <number>100000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QSpinBox" name="spinBox_2">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="maximum">
+          <number>100000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>127</width>
+           <height>19</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="4">
+        <widget class="QLabel" name="label_3">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Relay 2</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QSpinBox" name="spinBox_5">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="maximum">
+          <number>100000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="6" colspan="2">
+        <widget class="QSpinBox" name="spinBox_6">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="maximum">
+          <number>100000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="8" colspan="2">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>153</width>
+           <height>19</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="0" column="10">
+        <widget class="QLabel" name="label_2">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Relay 3</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="11" colspan="2">
+        <widget class="QSpinBox" name="spinBox_3">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="maximum">
+          <number>100000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="13">
+        <widget class="QSpinBox" name="spinBox_4">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="maximum">
+          <number>100000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="7">
+        <spacer name="horizontalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>611</width>
+           <height>19</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="7" colspan="2">
+        <widget class="QLineEdit" name="lineEdit_2">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="placeholderText">
+          <string>Device </string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="9" colspan="3">
+        <widget class="QPushButton" name="pushButton_3">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Connection</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="12" colspan="2">
+        <widget class="QPushButton" name="pushButton_10">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Setup</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
     <item row="1" column="0">
      <widget class="QGroupBox" name="groupBox_4">
       <property name="font">
@@ -26,6 +232,18 @@
        <string>Relays Control</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="1">
+        <widget class="QPushButton" name="pushButton_16">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>All ON</string>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="0">
         <widget class="QSplitter" name="splitter">
          <property name="orientation">
@@ -96,6 +314,18 @@
            <string>R3 OFF</string>
           </property>
          </widget>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="pushButton_17">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>All OFF</string>
+         </property>
         </widget>
        </item>
       </layout>
@@ -313,212 +543,6 @@
           </widget>
          </item>
         </layout>
-       </item>
-      </layout>
-     </widget>
-    </item>
-    <item row="0" column="0">
-     <widget class="QGroupBox" name="groupBox">
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="autoFillBackground">
-       <bool>false</bool>
-      </property>
-      <property name="title">
-       <string>Relay time setup</string>
-      </property>
-      <property name="flat">
-       <bool>false</bool>
-      </property>
-      <property name="checkable">
-       <bool>false</bool>
-      </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="0" column="3">
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>127</width>
-           <height>19</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Relay 1</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="5">
-        <widget class="QSpinBox" name="spinBox_5">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="maximum">
-          <number>100000</number>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QSpinBox" name="spinBox_2">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="maximum">
-          <number>100000</number>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="4">
-        <widget class="QLabel" name="label_3">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Relay 2</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="11">
-        <widget class="QSpinBox" name="spinBox_4">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="maximum">
-          <number>100000</number>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="6">
-        <widget class="QSpinBox" name="spinBox_6">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="maximum">
-          <number>100000</number>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="10">
-        <widget class="QSpinBox" name="spinBox_3">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="maximum">
-          <number>100000</number>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="7">
-        <spacer name="horizontalSpacer_4">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>611</width>
-           <height>19</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="1" column="9" colspan="2">
-        <widget class="QPushButton" name="pushButton_3">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Connection</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="7">
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>153</width>
-           <height>19</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="1" column="11">
-        <widget class="QPushButton" name="pushButton_10">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Setup</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QSpinBox" name="spinBox">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="maximum">
-          <number>100000</number>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="8" colspan="2">
-        <widget class="QLabel" name="label_2">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Relay 3</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="7" colspan="2">
-        <widget class="QLineEdit" name="lineEdit_2">
-         <property name="font">
-          <font>
-           <pointsize>12</pointsize>
-          </font>
-         </property>
-         <property name="placeholderText">
-          <string>Device </string>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
