@@ -327,7 +327,7 @@ class main_window(QMainWindow,Ui_MainWindow):
             client.username_pw_set(self.mqtt_username, self.mqtt_password)
             client.connect(self.mqtt_broker_ip, int(self.mqtt_port))
             # client.subscribe(self.lineEdit_3.text()+"/R1")
-            topic=self.lineEdit_2.text()+"/connection"
+            topic=self.lineEdit_2.text()+"/conn"
             client.publish(topic,"1")
             loading.close()
     def setupClicked(self):
@@ -363,7 +363,7 @@ class InsertWindow(QMainWindow,Ui_insertWindow):
         self.tag=None
         self.ReloadTime=None
         self.eatState=None
-        self.relayState=1
+        self.relayState=None
         self.R1Start=None
         self.R2Start=None
         self.R3Start=None
@@ -418,7 +418,11 @@ class InsertWindow(QMainWindow,Ui_insertWindow):
         self.device=self.lineEdit.text()
         self.tag=self.lineEdit_2.text()
         self.ReloadTime=self.lineEdit_3.text()
-        self.eatState=self.checkBox.checkState()#either 2 or 0
+        if self.checkBox.isChecked():
+            self.eatState="1"
+        else:
+            self.eatState="0"
+        self.relayState=1
         self.R1Start=self.spinBox.value()
         self.R2Start=self.spinBox_3.value()
         self.R3Start=self.spinBox_5.value()
@@ -541,7 +545,8 @@ class EditWindow(QMainWindow,Ui_insertWindow):
     def setData(self):
         self.device=self.lineEdit.text()
         self.tag=self.lineEdit_2.text()
-        self.relayState="0"
+        self.saveTime=self.dic["saveTime"]
+        self.relayState="1"
         self.ReloadTime=self.lineEdit_3.text()
         if self.checkBox.isChecked():
             self.eatState="1"
@@ -556,7 +561,7 @@ class EditWindow(QMainWindow,Ui_insertWindow):
         self.days=self.spinBox_7.value()
     def update(self):
         self.setData()
-        if updatedata(self.device,self.tag,datetime.now(),self.ReloadTime,self.relayState,self.eatState,str(self.R1Start)+"#"+str(self.R1End),str(self.R2Start)+"#"+str(self.R2End),str(self.R3Start)+"#"+str(self.R3End),self.days) is True:
+        if updatedata(self.device,self.tag,self.saveTime,self.ReloadTime,self.relayState,self.eatState,str(self.R1Start)+"#"+str(self.R1End),str(self.R2Start)+"#"+str(self.R2End),str(self.R3Start)+"#"+str(self.R3End),self.days) is True:
             QMessageBox.information(self,'congratulation',"<font size = 8>Data inserted succussfuly</font>")
             self.close()
         else:

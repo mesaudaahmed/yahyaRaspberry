@@ -22,17 +22,50 @@ class mqtt_esp(mqtt.Client):
         print ("Connected!", str(rc))
         # Once the client has connected to the broker, subscribe to the topic
         self.subscribe(self.mqtt_topic)
+        self.subscribe("connection")#subscribe to a topic to determinate device state
     def on_message(self,client, userdata, msg):
     # This function is called everytime the topic is published to.
     # If you want to check each message, and do something depending on
     # the content, the code to do this should be run in this function
         print("Topic: ", msg.topic + "\nMessage: " + str(msg.payload))
         self.payload = json.loads(msg.payload)
-        print("device: "+ self.payload["deviceID"])
-        print("tagID:  "+ self.payload["tagID"])
+        print("topic: "+ msg.topic)
+        print("topic: "+str(self.payload))
         # self.publish()
         # update the data for eat_state and device work availabilty and update days 
+        if msg.topic=="connection":
+            #update all esp state on esp table as 0 to to tell the user the state off device is ready for recive tags 
+            print(self.payload["state"])
+            with sqlite3.connect("clientData.db") as con:
+                cur = con.cursor()
+                cur.execute("UPDATE EspData set RelayState = 0 where device = ?",(self.payload["deviceID"],))
+                con.commit()
+        elif msg.topic=="outTopic":
+            #get all setting data and store it inside dictonnary
+            setting_dic=getSetting("setting")
+            #same way for tag data 
+            data_dic=getData("EspData",self.payload["tagID"])
+            #get the days parametre for tag id 
+            days=int(data_dic["Days"])
+            #get the savetime parametre for tag id 
+            savetime=data_dic["saveTime"]
+            #compare it and decide an action to reconfigure relay timer as default configurations
+            if int(daysPassed(savetime))>=days:
+                with sqlite3.connect("clientData.db") as con:
+                    cur = con.cursor()
+                    clientes =[(self.payload["deviceID"],setting_dic["R1time"],setting_dic["R2time"],setting_dic["R3time"],str(self.payload["tagID"]))]
+                    cur.executemany ( " UPDATE EspData set device =?, R1time=? ,R2time=? ,R3time=?,days=0 where tag=?" , clientes)
+                    con.commit()
+                    print("table updated for days equal 0")
+            else:
+                payload=data_dic["R1time"]+"#"+data_dic["R2time"]+"#"+data_dic["R3time"]
+                self.publish(self.payload["deviceID"]+"/GroupA",payload)
+                #update eatstate update eat time
+            print("days passed",int(daysPassed(savetime)))
+            print("device: "+str(self.payload["deviceID"]))
+            print("tag: "+str(self.payload["tagID"]))
         # chech if days is equale zero then update all relay timer value
+
         # check if tag is saved on EspData table 
             #if tag is saved
                 # check the reload time 

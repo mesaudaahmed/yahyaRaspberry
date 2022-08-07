@@ -5,10 +5,10 @@ import paho.mqtt.publish as publish
 import sqlite3
 import paho.mqtt.client as mqtt
 #start connection with database 
-conn=sqlite3.connect("clientData.db")
+conn=sqlite3.connect("clientData.db",check_same_thread=False)
 cursor=conn.cursor() 
 client = mqtt.Client()
-#return how long time the tag is in database
+#return how long time the tag is in database by min
 def savetime(firstTime):
     # firstTime = '16/03/22 16:15:19'
     first_time = datetime.strptime(firstTime, '%Y-%m-%d %H:%M:%S.%f')
@@ -18,8 +18,16 @@ def savetime(firstTime):
     day_to_sec = 24 * 60 * 60
     tup=divmod(difference.days * day_to_sec + difference.seconds, 60)
     return int(tup[0]+tup[1]/60)
-# Pfunction to illustrate the addition
-# of time onto the datetime object
+#return how long time the tag is in database by days
+def daysPassed(firstTime):
+    # firstTime = '16/03/22 16:15:19'
+    first_time = datetime.strptime(firstTime, '%Y-%m-%d %H:%M:%S.%f')
+    later_time = datetime.now()
+    difference = later_time - first_time
+    tup=divmod(difference.days,60)
+    return tup[1] 
+# Pfunction to illustrate the additionnal
+# time onto the datetime object
 def reloadtime(time,min):
     savetime = datetime.strptime(time, '%Y-%m-%d %H:%M:%S.%f')
     new_time=savetime+timedelta(minutes=min)
@@ -161,8 +169,13 @@ def on_publish(client,userdata,result):             #create function for callbac
 # print(cursor.fetchall()[0])
 
 # updatedata("esp08",1000,datetime.now(),70,"0","0","50#40","25#40","30#40",10)
-# print(reloadtime("2022-07-22 18:07:54.138015",60))
+#print(daysPassed("2022-07-22 18:07:54.138015"))
 # print(deleteTag("585858"))
 
+#cursor.execute("UPDATE EspData set RelayState = 1 where device = ?",("esp08",))
 
+# print(getSetting("setting")["R1time"])
+# print(getSetting("setting")["R2time"])
+# print(getSetting("setting")["R3time"])
 
+# print(getData("EspData","1001"))
